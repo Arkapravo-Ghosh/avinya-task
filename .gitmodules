@@ -1,0 +1,6 @@
+[submodule "avinya-task-frontend"]
+	path = avinya-task-frontend
+	url = https://github.com/Arkapravo-Ghosh/avinya-task-frontend
+[submodule "avinya-task-backend"]
+	path = avinya-task-backend
+	url = https://github.com/Arkapravo-Ghosh/avinya-task-backend

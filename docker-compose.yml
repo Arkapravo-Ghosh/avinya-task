@@ -1,0 +1,48 @@
+services:
+  db:
+    image: mariadb
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: "test@123"
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
+    volumes:
+      - db:/var/lib/mysql
+
+  backend:
+    depends_on:
+      - db
+    build:
+      context: avinya-task-backend
+      dockerfile: Dockerfile
+    image: avinya-task-backend:latest
+    pull_policy: never
+    restart: always
+    ports:
+      - "8000:8000"
+      - "50051:50051"
+    expose:
+      - "8000"
+      - "50051"
+    environment:
+      PRODUCTION: "true"
+      SQL_HOST: "db"
+
+  frontend:
+    build:
+      context: avinya-task-frontend
+      dockerfile: Dockerfile
+    image: avinya-task-frontend:latest
+    pull_policy: never
+    restart: always
+    ports:
+      - "80:80"
+    expose:
+      - "80"
+    depends_on:
+      - backend
+
+volumes:
+  db:
